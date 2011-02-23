@@ -24,12 +24,12 @@ package org.apache.maven.surefire.its;
  *
  * @author <a href="mailto:olamy@apache.org">Olivier Lamy</a>
  */
-public class JUnit44TestMethodPattern
-    extends AsbtractTestMethodPattern
+public class JUnit48TestSingleMethod
+    extends AbstractTestSingleMethod
 {
-    public JUnit44TestMethodPattern()
+    public JUnit48TestSingleMethod()
     {
-        super( "/junit44-method-pattern" );
+        super( "/junit48-single-method" );
     }
 
 }

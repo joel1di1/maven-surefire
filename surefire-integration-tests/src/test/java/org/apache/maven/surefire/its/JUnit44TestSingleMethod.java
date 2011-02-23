@@ -25,18 +25,11 @@ package org.apache.maven.surefire.its;
  * @author <a href="mailto:olamy@apache.org">Olivier Lamy</a>
  */
 public class JUnit44TestSingleMethod
-    extends SurefireVerifierTestClass
+    extends AbstractTestSingleMethod
 {
     public JUnit44TestSingleMethod()
     {
-        super( "/junit4-single-method" );
+        super( "/junit44-single-method" );
     }
 
-    public void testJUnit44SingleMethod()
-        throws Exception
-    {
-        executeTest();
-        verifyErrorFreeLog();
-        assertTestSuiteResults( 1, 0, 0, 0 );
-    }
 }
