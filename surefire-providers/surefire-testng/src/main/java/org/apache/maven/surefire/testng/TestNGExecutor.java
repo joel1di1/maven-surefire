@@ -19,6 +19,11 @@ package org.apache.maven.surefire.testng;
  * under the License.
  */
 
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException;
 import org.apache.maven.artifact.versioning.VersionRange;
@@ -28,13 +33,12 @@ import org.apache.maven.surefire.testng.conf.TestNG4751Configurator;
 import org.apache.maven.surefire.testng.conf.TestNG52Configurator;
 import org.apache.maven.surefire.testng.conf.TestNGMapConfigurator;
 import org.apache.maven.surefire.testset.TestSetFailedException;
-
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.maven.surefire.util.NestedRuntimeException;
+import org.apache.maven.surefire.util.internal.SelectorUtils;
+import org.apache.maven.surefire.util.internal.StringUtils;
+import org.testng.IMethodSelector;
+import org.testng.IMethodSelectorContext;
+import org.testng.ITestNGMethod;
 import org.testng.TestNG;
 
 /**
@@ -45,15 +49,24 @@ import org.testng.TestNG;
  */
 public class TestNGExecutor
 {
+    
+    public static String METHOD_NAME;
+    
     private TestNGExecutor()
     {
+        // noop
     }
 
     public static void run( Class[] testClasses, String testSourceDirectory, Map options, ArtifactVersion version,
-                            Reporter reportManager, TestNgTestSuite suite, File reportsDirectory )
+                            Reporter reportManager, TestNgTestSuite suite, File reportsDirectory, final String methodNamePattern )
         throws TestSetFailedException
     {
         TestNG testng = new TestNG( true );
+        METHOD_NAME = methodNamePattern;
+        if (!StringUtils.isBlank( methodNamePattern ))
+        {
+            testng.addMethodSelector( MethodSelector.class.getName(), 1 );
+        }
         Configurator configurator = getConfigurator( version );
         configurator.configure( testng, options );
         postConfigure( testng, testSourceDirectory, reportManager, suite, reportsDirectory );
@@ -145,4 +158,5 @@ public class TestNGExecutor
             return new TestNGReporter( reportManager );
         }
     }
+    
 }
