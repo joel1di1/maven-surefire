@@ -310,7 +310,7 @@ public abstract class AbstractSurefireMojo
         TestArtifactInfo testNg =
             isTestNg ? new TestArtifactInfo( testNgArtifact.getVersion(), testNgArtifact.getClassifier() ) : null;
         List testXml = getSuiteXmlFiles() != null ? Arrays.asList( getSuiteXmlFiles() ) : null;
-        TestRequest testSuiteDefinition = new TestRequest( testXml, getTestSourceDirectory(), getTest() );
+        TestRequest testSuiteDefinition = new TestRequest( testXml, getTestSourceDirectory(), getTest(), getTestMethod() );
         final boolean failIfNoTests;
 
         if ( isValidSuiteXmlFileConfig() && getTest() == null )
@@ -778,7 +778,7 @@ public abstract class AbstractSurefireMojo
 
         return classpath;
     }
-
+    
     /**
      * Return a new set containing only the artifacts accepted by the given filter.
      *

@@ -201,7 +201,7 @@ public class IntegrationTestMojo
      * @parameter expression="${it.test}"
      */
     private String test;
-
+    
     /**
      * A list of &lt;include> elements specifying the tests (by pattern) that should be included in testing. When not
      * specified and when the <code>test</code> parameter is not specified, the default includes will be
@@ -866,6 +866,15 @@ public class IntegrationTestMojo
 
     public String getTest()
     {
+        if ( StringUtils.isBlank( test ) )
+        {
+            return null;
+        }
+        int index = test.indexOf( '#' );
+        if ( index >= 0 )
+        {
+            return test.substring( 0, index );
+        }
         return test;
     }
 
@@ -873,6 +882,23 @@ public class IntegrationTestMojo
     {
         this.test = test;
     }
+    
+    /**
+     * @since 2.7.3
+     */
+    public String getTestMethod()
+    {
+        if ( StringUtils.isBlank( test ) )
+        {
+            return null;
+        }        
+        int index = this.test.indexOf( '#' );
+        if ( index >= 0 )
+        {
+            return this.test.substring( index + 1, this.test.length() );
+        }
+        return null;
+    }    
 
     public List getIncludes()
     {
@@ -1356,4 +1382,5 @@ public class IntegrationTestMojo
         checksum.add(skipITs);
         checksum.add(summaryFile);
     }
+    
 }
