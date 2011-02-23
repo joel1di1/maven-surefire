@@ -34,7 +34,13 @@ public class BasicTest
     {
         Assert.assertTrue( "setUp was not called", setUpCalled );
     }
-  
+    
+    
+    @Test
+    public void testSuccessOne()
+    {
+        Assert.assertTrue( true );
+    }     
 
     @AfterClass
     public static void oneTimeTearDown()
