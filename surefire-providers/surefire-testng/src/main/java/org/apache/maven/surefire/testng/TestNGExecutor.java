@@ -34,11 +34,7 @@ import org.apache.maven.surefire.testng.conf.TestNG52Configurator;
 import org.apache.maven.surefire.testng.conf.TestNGMapConfigurator;
 import org.apache.maven.surefire.testset.TestSetFailedException;
 import org.apache.maven.surefire.util.NestedRuntimeException;
-import org.apache.maven.surefire.util.internal.SelectorUtils;
 import org.apache.maven.surefire.util.internal.StringUtils;
-import org.testng.IMethodSelector;
-import org.testng.IMethodSelectorContext;
-import org.testng.ITestNGMethod;
 import org.testng.TestNG;
 
 /**
